@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RubyTodo</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+
+    <%= javascript_pack_tag 'home' %>
+    <script type="text/javascript">
+      function showNew() {
+        $('#new').fadeIn();
+        $('#but').fadeOut();
+      }
+      function hideNew() {
+        $('#new').fadeOut();
+        $('#but').fadeIn();
+      }
+
+      function changeSelect() {
+        var e = $('#project_id option:selected').text();
+        $('#proj_text').text(e);
+      }
+    </script>
+  </head>
+
+  <body onload="changeSelect();">
+    <%= yield %>
+  </body>
+</html>

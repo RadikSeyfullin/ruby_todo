@@ -1,0 +1,35 @@
+<h1>Задачи</h1><br>
+<% for @proj in @projects %>
+<h2><%= @proj.title.upcase %></h1>
+<ul>
+  <% for @td in Todo.where('project_id = ?', @proj.id) %>
+    <li><%= @td.text %></li>
+  <% end %>
+</ul>
+<% end %>
+<br>
+<!-- <div id="new">
+  <input type="text" name="title" value=""><br>
+  <select name="project" id="project">
+    <% for @proj in @projects %>
+      <option><%= @proj.title %></option>
+    <% end %>
+  </select>
+  <label id="proj_text"></label>
+  <a href="#"></a>
+  <button type="button" id="close" name="close">Отмена</button>
+  <input type="submit" name="add" id="ok" value="OK">
+</div> -->
+
+<button id="but" onclick="showNew();">+</button>
+
+<div id="new" style="display: none;">
+  <h3>Новая задача</h3>
+  <%= form_for :todo, url: '/create', method: 'get', html: {id: "todo"} do |new_form| %>
+    <%= new_form.text_field(:text) %><br>
+    <%= new_form.collection_select(:project_id, Project.all, :id, :title, {}, {:onChange => "changeSelect();", :id => 'project_id'}) %>
+    <span id="proj_text"></span><br>
+    <a href="#" onclick="hideNew();">Отмена</a>
+    <%= link_to 'OK', "#", :onclick=>"document.getElementById('todo').submit()" %>
+  <% end %>
+</div>
