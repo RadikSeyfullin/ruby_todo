@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'OpenSans-Regular';
+  src: url(/assets/OpenSans-Regular-e64e508b2aa2880f907e470c4550980ec4c0694d103a43f36150ac3f93189bee.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSans-Light';
+  src: url(/assets/OpenSans-Light-cf5f5184c1441a1660aa52526328e9d5c2793e77b6d8d3a3ad654bdb07ab8424.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSans-Semibold';
+  src: url(/assets/OpenSans-Semibold-aa3b0ef53db12e3d45094030cac0e69d384e44cc5978643dd4390041cad546e2.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 26, /Users/radikseyfullin/Desktop/ruby/app/assets/stylesheets/todo.scss */
+html, body {
+  font-family: 'OpenSans-Regular';
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
+

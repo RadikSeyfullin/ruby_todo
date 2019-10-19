@@ -1,10 +1,17 @@
 class TodoController < ApplicationController
   def index
-    @projects = Project.all
-    @todos = Todo.all
+    @projects = Project.includes(:todos)
   end
 
   def update
+    @todo = Todo.find(params[:id])
+    if @todo.isCompleted
+      @todo.isCompleted = false
+    else
+      @todo.isCompleted = true
+    end
+    @todo.save
+    redirect_to '/'
   end
 
   def create

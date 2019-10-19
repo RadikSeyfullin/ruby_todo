@@ -8,6 +8,24 @@ require("@rails/activestorage").start()
 require("channels")
 require("jquery")
 
+import('./bootstrap_custom.js')
+
+$(document).ready(function(){
+  $('input.isCompl').iCheck({
+    checkboxClass: 'icheckbox_square-blue'
+  });
+
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  })
+
+  $('input.isCompl').on('ifChanged', function(event) {
+    var i = $(this).attr('id');
+    var j = i.substring(0, i.length - 1);
+    $('#' + j).submit();
+  });
+});
+
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -16,3 +34,17 @@ require("jquery")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+window.jQuery = $;
+window.$ = $;
+window.changeSelect = function() {
+  var e = $('#project_id option:selected').text();
+  $('#proj_text').text(e);
+};
+window.showNew = function() {
+  $('#new').fadeIn();
+};
+window.hideNew = function () {
+  $('#new').fadeOut();
+};
+window.iCheck = {};

@@ -1,35 +1,67 @@
-<h1>Задачи</h1><br>
-<% for @proj in @projects %>
-<h2><%= @proj.title.upcase %></h1>
-<ul>
-  <% for @td in Todo.where('project_id = ?', @proj.id) %>
-    <li><%= @td.text %></li>
-  <% end %>
-</ul>
-<% end %>
-<br>
-<!-- <div id="new">
-  <input type="text" name="title" value=""><br>
-  <select name="project" id="project">
-    <% for @proj in @projects %>
-      <option><%= @proj.title %></option>
-    <% end %>
-  </select>
-  <label id="proj_text"></label>
-  <a href="#"></a>
-  <button type="button" id="close" name="close">Отмена</button>
-  <input type="submit" name="add" id="ok" value="OK">
-</div> -->
+<div class="header">
+  Задачи
+  <span class="add_new" id="but" data-toggle="modal" data-target="#exampleModal">+</span>
+</div>
 
-<button id="but" onclick="showNew();">+</button>
+<div class="py-5">
+  <div class="container">
+    <div class="row">
+      <% for @proj in @projects %>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card_s">
+              <div class="card-block proj_title">
+                <h5 class="card-title">
+                  <%= @proj.title.upcase %>
+                </h5>
+              </div>
+              <ul class="list-of-todos">
+                <% for @td in @proj.todos %>
+                  <li class="list-todo">
+                    <% if @td.isCompleted %>
+                      <%= form_for :todo, url: '/update/' + @td.id.to_s, method: 'get', html: {id: @td.id } do |check_status| %>
+                      <input class="isCompl" type="checkbox" id="<%= @td.id %>c" checked>
+                      <input type="hidden" name="id_td" value="<%= @td.id %>">
+                      <span class="todo-text"><s><%= @td.text %></s></span>
+                      <% end %>
+                    <% else %>
+                      <%= form_for :todo, url: '/update/' + @td.id.to_s, method: 'get', html: {id: @td.id } do |check_status| %>
+                      <input class="isCompl" type="checkbox" id="<%= @td.id %>c">
+                      <input type="hidden" name="id_td" value="<%= @td.id %>">
+                      <span class="todo-text"><%= @td.text %></span>
+                      <% end %>
+                    <% end %>
 
-<div id="new" style="display: none;">
-  <h3>Новая задача</h3>
-  <%= form_for :todo, url: '/create', method: 'get', html: {id: "todo"} do |new_form| %>
-    <%= new_form.text_field(:text) %><br>
-    <%= new_form.collection_select(:project_id, Project.all, :id, :title, {}, {:onChange => "changeSelect();", :id => 'project_id'}) %>
-    <span id="proj_text"></span><br>
-    <a href="#" onclick="hideNew();">Отмена</a>
-    <%= link_to 'OK', "#", :onclick=>"document.getElementById('todo').submit()" %>
-  <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="new-title col-md-12" id="exampleModalLabel">Новая задача</div>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+        <%= form_for :todo, url: '/create', method: 'get', html: {id: "todo"} do |new_form| %>
+          <%= new_form.text_field(:text, class: "col-md-12 form-control", placeholder: "Название") %>
+          <div class="form-group">
+            <%= new_form.collection_select(:project_id, @projects, :id, :title, {}, {:class => "col-md-12 custom_select"}) %>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="col-md-6 btn btn-secondary btn_new" data-dismiss="modal">Отмена</button>
+        <%= new_form.submit("OK", class: "col-md-6 btn btn-primary btn_new") %>
+      <% end %>
+      </div>
+    </div>
+  </div>
 </div>
